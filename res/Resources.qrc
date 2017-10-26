@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>noimage.png</file>
+    <file>checkbox.png</file>
+    <file>uncheckbox.png</file>
+    <file>icon.png</file>
+  </qresource>
+  <qresource prefix="css">
+    <file>DefaultUIStyle.css</file>
+  </qresource>
+  <qresource prefix="layout">
+    <file>DicomBrowserWin.ui</file>
+  </qresource>
+</RCC>
