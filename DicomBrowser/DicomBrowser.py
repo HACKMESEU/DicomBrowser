@@ -43,7 +43,7 @@ os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = plugin_path
 from PyQt5.QtCore import Qt, QStringListModel
 import Resources_rc5 # import resources manually since we have to do this to get the ui file
     
-	
+# add test
 scriptdir=os.path.dirname(os.path.abspath(__file__)) # path of the current file
 
  #this allows the script to be run directly from the repository without having to install pydicom or pyqtgraph
