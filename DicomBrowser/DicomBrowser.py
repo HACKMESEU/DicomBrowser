@@ -637,14 +637,21 @@ class DicomSeries(object):
     def getPos(self):
         poslist = []
         postemp = []
+        Imgpostemp = []
+        Imgposlist =[]
         TotalNum = len(self.dcms)
         for i in range(TotalNum):
             pos = self.getTagObject(i).SliceLocation
+            Imgpos = self.getTagObject(i).ImagePositionPatient
             poslist.append(pos)
+            Imgposlist.append(Imgpos)
             if pos not in postemp:
                 postemp.append(pos)
+                Imgpostemp.append(Imgpos)
+
         self.poslist = poslist
         self.pos = postemp
+        self.Imgpos = Imgpostemp
 
 
 class SeriesTableModel(QtCore.QAbstractTableModel):
@@ -2121,6 +2128,11 @@ class DicomBrowser(QtGui.QMainWindow,Ui_DicomBrowserWin):
         dcm.SeriesDescription = 'DKIParaMap'
 
         for s in range(sliceNum):
+            dcm.SliceLocation = series.pos[s]
+            dcm.ImagePositionPatient = series.Imgpos[s]
+            if (sliceNum == 1):
+                dcm.SliceLocation = series.getTagObject(self.imageSlider.value()).SliceLocation
+                dcm.ImagePositionPatient = series.getTagObject(self.imageSlider.value()).ImagePositionPatient
             img = self.FA[:,:,s]
 
             rslope = RangeSize / float(img.max() - img.min())
@@ -2267,6 +2279,11 @@ class DicomBrowser(QtGui.QMainWindow,Ui_DicomBrowserWin):
         RangeSize = 4096.
         dcm.SeriesDescription = 'IVIMParaMap'
         for s in range(sliceNum):
+            dcm.SliceLocation = series.pos[s]
+            dcm.ImagePositionPatient = series.Imgpos[s]
+            if (sliceNum == 1):
+                dcm.SliceLocation = series.getTagObject(self.imageSlider.value()).SliceLocation
+                dcm.ImagePositionPatient = series.getTagObject(self.imageSlider.value()).ImagePositionPatient
             img = self.S0_predicted[:,:,s]
             rslope = RangeSize / float(img.max() - img.min())
             rinter = rslope * img.min()
@@ -2356,6 +2373,11 @@ class DicomBrowser(QtGui.QMainWindow,Ui_DicomBrowserWin):
         RangeSize = 4096.
         dcm.SeriesDescription = 'DTIParaMap'
         for s in range(sliceNum):
+            dcm.SliceLocation = series.pos[s]
+            dcm.ImagePositionPatient = series.Imgpos[s]
+            if (sliceNum == 1):
+                dcm.SliceLocation = series.getTagObject(self.imageSlider.value()).SliceLocation
+                dcm.ImagePositionPatient = series.getTagObject(self.imageSlider.value()).ImagePositionPatient
             img = self.DTI_FA[:,:,s]
             rslope = RangeSize/float(img.max()-img.min())
             rinter = rslope*img.min()
@@ -2449,6 +2471,11 @@ class DicomBrowser(QtGui.QMainWindow,Ui_DicomBrowserWin):
         RangeSize = 4096.
         dcm.SeriesDescription = 'MonoEParaMap'
         for s in range(sliceNum):
+            dcm.SliceLocation = series.pos[s]
+            dcm.ImagePositionPatient = series.Imgpos[s]
+            if (sliceNum == 1):
+                dcm.SliceLocation = series.getTagObject(self.imageSlider.value()).SliceLocation
+                dcm.ImagePositionPatient = series.getTagObject(self.imageSlider.value()).ImagePositionPatient
             img = self.ADCm[:, :, s]
             rslope = RangeSize / float(img.max() - img.min())
             rinter = rslope * img.min()
@@ -2491,6 +2518,11 @@ class DicomBrowser(QtGui.QMainWindow,Ui_DicomBrowserWin):
         RangeSize = 4096.
         dcm.SeriesDescription = 'SEParaMap'
         for s in range(sliceNum):
+            dcm.SliceLocation = series.pos[s]
+            dcm.ImagePositionPatient = series.Imgpos[s]
+            if (sliceNum == 1):
+                dcm.SliceLocation = series.getTagObject(self.imageSlider.value()).SliceLocation
+                dcm.ImagePositionPatient = series.getTagObject(self.imageSlider.value()).ImagePositionPatient
             img = self.ADCs[:, :, s]
             rslope = RangeSize / float(img.max() - img.min())
             rinter = rslope * img.min()
